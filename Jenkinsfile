@@ -58,12 +58,7 @@ pipeline {
         }
 
 
-    post {
-        always {
-            sh "docker stop ${CONTAINER_ID}"
-            sh "docker rm ${CONTAINER_ID}"
-        }
-    }
+    
 
     stage('Performance Analysis') {
     steps {
@@ -85,6 +80,15 @@ pipeline {
     }
 }
     }    
+
+    post {
+        always {
+            sh "docker stop ${CONTAINER_ID}"
+            sh "docker rm ${CONTAINER_ID}"
+        }
+    }
+
+    
 }
 
 
