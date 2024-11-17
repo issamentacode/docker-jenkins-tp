@@ -1,20 +1,16 @@
 FROM alpine:3.14
 
-RUN apk update && \
-    apk add --no-cache --virtual .build-deps \
-        gcc \
-        musl-dev \
-        python3-dev \
-    && apk add --no-cache python3 py3-pip
+RUN apk add --no-cache python3 py3-pip gcc musl-dev python3-dev
 
 WORKDIR /app
 
 COPY sum.py .
 
-RUN python3 -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
+# Créer un environnement virtuel
+RUN python3 -m venv venv
 
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir sphinx
+# Activer l'environnement virtuel et installer les packages
+RUN . venv/bin/activate && \
+    pip install --no-cache-dir --upgrade pip setuptools wheel sphinx
 
 CMD ["tail", "-f", "/dev/null"]
