@@ -58,9 +58,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh "echo 'Oura je ne suis connecté' | docker login -u '<issamentacode>' -p <Pa55word.dockerhub>"
-                    sh "docker tag sum-image <issamentacode>/sum-image:latest"
-                    sh "docker push <issamentacode>/sum-image:latest"
+                    sh "echo 'Oura je ne suis connecté' | docker login -u 'issamentacode' -p 'Pa55word.dockerhub'"
+                    sh "docker tag sum-image issamentacode/sum-image:latest"
+                    sh "docker push issamentacode/sum-image:latest"
                 }
             }
         }
