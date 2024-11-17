@@ -9,6 +9,13 @@ pipeline {
     }
     
     stages {
+        stage('Check Docker') {
+            steps {
+                sh 'docker info'
+            }
+        }
+
+        
         stage('Build') {
             steps {
                 script {
@@ -18,13 +25,13 @@ pipeline {
         }
         
         stage('Run') {
-            steps {
-                script {
-                    def output = sh(script: "docker run -d sum-image", returnStdout: true)
-                    CONTAINER_ID = output.trim()
-                }
-            }
+    steps {
+        script {
+            CONTAINER_ID = sh(script: "docker run -d sum-image", returnStdout: true).trim()
+            echo "Container ID: ${CONTAINER_ID}"
         }
+    }
+}
         
         stage('Test') {
             steps {
@@ -82,13 +89,19 @@ pipeline {
     }    
 
     post {
-        always {
-            sh "docker stop ${CONTAINER_ID}"
-            sh "docker rm ${CONTAINER_ID}"
+    always {
+        script {
+            if (env.CONTAINER_ID) {
+                sh "docker stop ${CONTAINER_ID}"
+                sh "docker rm ${CONTAINER_ID}"
+            } else {
+                echo "No container to clean up"
+            }
         }
     }
+}
 
-    
+
 }
 
 
