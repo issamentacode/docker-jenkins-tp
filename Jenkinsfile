@@ -6,7 +6,6 @@ pipeline {
         SUM_PY_PATH = '/app/sum.py'
         DIR_PATH = "${WORKSPACE}" // Utiliser WORKSPACE au lieu de '~/docker-jenkins-tp'
         TEST_FILE_PATH = "${DIR_PATH}/test_variables.txt"
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // Utiliser les credentials Jenkins
     }
     
     stages {
@@ -59,11 +58,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
-                        sh "echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin"
-                        sh "docker tag sum-image $DOCKERHUB_USER/sum-image:latest"
-                        sh "docker push $DOCKERHUB_USER/sum-image:latest"
-                    }
+                    // Remplacez <username> et <password> par vos informations d'identification Docker Hub
+                    sh "echo '<Pa55word.dockerhub>' | docker login -u '<issamentacode>' --password-stdin"
+                    sh "docker tag sum-image <issamentacode>/sum-image:latest"
+                    sh "docker push <issamentacode>/sum-image:latest"
                 }
             }
         }
