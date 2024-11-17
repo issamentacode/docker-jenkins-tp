@@ -59,7 +59,7 @@ pipeline {
             steps {
                 script {
                     // Remplacez <username> et <password> par vos informations d'identification Docker Hub
-                    sh "echo '<Pa55word.dockerhub>' | docker login -u '<issamentacode>' --password-stdin"
+                    sh "echo 'Oura je ne suis connecté' | docker login -u '<issamentacode>' -p <Pa55word.dockerhub>"
                     sh "docker tag sum-image <issamentacode>/sum-image:latest"
                     sh "docker push <issamentacode>/sum-image:latest"
                 }
