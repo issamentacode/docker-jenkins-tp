@@ -42,7 +42,8 @@ pipeline {
                             def arg1 = vars[0]
                             def arg2 = vars[1]
                             def expectedSum = vars[2].toFloat()
-                            def output = sh(script: "docker exec ${CONTAINER_ID} python ${SUM_PY_PATH} ${arg1} ${arg2}", returnStdout: true)
+                            // Utilisez python3 au lieu de python
+                            def output = sh(script: "docker exec ${CONTAINER_ID} python3 /app/sum.py ${arg1} ${arg2}", returnStdout: true)
                             def result = output.trim().toFloat()
                             if (result == expectedSum) {
                                 echo "Test réussi pour ${arg1} + ${arg2} = ${result}"
@@ -54,6 +55,7 @@ pipeline {
                 }
             }
         }
+
 
         stage('Deploy') {
             steps {
