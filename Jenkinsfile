@@ -4,7 +4,7 @@ pipeline {
     environment {
         CONTAINER_ID = ''
         SUM_PY_PATH = '/app/sum.py'
-        DIR_PATH = '/home/issa/ECE/COURS/MSc1/DevOps_with_SRE/docker-jenkins-tp'
+        DIR_PATH = '~/docker-jenkins-tp'
         TEST_FILE_PATH = "${DIR_PATH}/test_variables.txt"
     }
     
